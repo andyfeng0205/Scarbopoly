@@ -8,9 +8,9 @@ class Board;
 
 class Game{
     // private instance variables
-    vector<Player*> players; // 
+    vector<Player*> players;
     Board* board;
-    int numCurrentPlayers; // 
+    int numCurrentPlayers;
 public:
     Game();
     Game(const Game &other);
@@ -18,6 +18,8 @@ public:
     Game &operator=(const Game &other);
     Game &operator=(Game &&other);
     ~Game();
-    
+
     void startGame();
+    void endGame();
+    
 };
