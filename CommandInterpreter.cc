@@ -63,6 +63,9 @@ void CommandInterpreter::parseCommand() {
     }
 }
 
-void CommandInterpreter::executeCommand() {
-    
+void CommandInterpreter::executeCommand() const {
+    if(!validCommand) return;
+    else if(commandType == "roll")
+    else if(commandType == "trade") game->trade(player2, give, receive);
+    else if(commandType == "")
 }
