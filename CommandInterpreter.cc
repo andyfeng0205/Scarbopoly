@@ -1,33 +1,68 @@
 #include "CommandInterpreter.h"
+#include "Game.h"
 #include <iostream>
+#include <sstream>
 #include <string>
+
 using namespace std;
 
-CommandInterpreter::CommandInterpreter(Game *game) : game{game} {}
+CommandInterpreter::CommandInterpreter(Game *game)
+    : game{game} {}
 
-// We are creating a shallow copy here because there is only one game
-CommandInterpreter::CommandInterpreter(const CommandInterpreter &other) : game{other.game}, input{other.input} {}
-
-CommandInterpreter::CommandInterpreter(CommandInterpreter &&other) : game{other.game}, input{other.input} {
-    other.game = nullptr;
+bool CommandInterpreter::readCommand() {
+    if(getline(cin, command)) return true;
+    return false;
 }
 
-// similar reason for the copy constructor, we are creating a shallow copy because ther is only one Game
-CommandInterpreter &CommandInterpreter::operator=(const CommandInterpreter &other) {
-    game = other.game;
-    input = other.input;
+void CommandInterpreter::parseCommand() {
+    istringstream iss{command};
 
-    return *this;
+    // Clear previous command information
+    commandType = "";
+    give = "";
+    receive = "";
+    property = "";
+    player2 = "";
+    buyOrSell = "";
+    filename = "";
+    validCommand = false;
+
+    // Read command type
+    if(!(iss >> commandType)) return;
+
+    string extra;
+    if(commandType == "roll" ||
+       commandType == "next" ||
+       commandType == "bankrupt" ||
+       commandType == "assets" ||
+       commandType == "all") {
+
+        if(!(iss >> extra)) validCommand = true;
+    }
+    else if(commandType == "trade") {
+        if(iss >> player2 >> give >> receive) {
+            if(!(iss >> extra)) validCommand = true;
+        }
+    }
+    else if(commandType == "improve") {
+        if(iss >> property >> buyOrSell) {
+            if(buyOrSell == "buy" || buyOrSell == "sell") {
+                if(!(iss >> extra)) validCommand = true;
+            }
+        }
+    }
+    else if(commandType == "mortgage" || commandType == "unmortgage") {
+        if(iss >> property) {
+            if(!(iss >> extra)) validCommand = true;
+        }
+    }
+    else if(commandType == "save") {
+        if(iss >> filename) {
+            if(!(iss >> extra)) validCommand = true;
+        }
+    }
 }
 
-CommandInterpreter &CommandInterpreter::operator=(CommandInterpreter &&other) {
-    game = other.game;
-    input = other.input;
-    other.game = nullptr;
-
-    return *this;
-}
-
-string CommandInterpreter::readCommand() {
+void CommandInterpreter::executeCommand() {
     
 }
