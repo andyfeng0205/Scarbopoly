@@ -8,6 +8,7 @@ class Game;
 class CommandInterpreter {
     // private instance variables
     Game *game;
+    string input;
 public:
     CommandInterpreter(Game *game); // normal constructor
     CommandInterpreter(const CommandInterpreter &other); // copy constructor
