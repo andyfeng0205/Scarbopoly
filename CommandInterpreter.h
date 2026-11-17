@@ -25,7 +25,7 @@ public:
 
     bool readCommand();
     void parseCommand();
-    void executeCommand();
+    void executeCommand() const ;
 };
 
 #endif

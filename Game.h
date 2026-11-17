@@ -21,5 +21,5 @@ public:
 
     void startGame();
     void endGame();
-    
+    void 
 };
