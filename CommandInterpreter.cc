@@ -62,10 +62,21 @@ void CommandInterpreter::parseCommand() {
         }
     }
 }
+ 
+void CommandInterpreter::executeCommand() {
+    if(!validCommand) {
+        cout << "Invalid command." << endl;
+        return;
+    }
 
-void CommandInterpreter::executeCommand() const {
-    if(!validCommand) return;
-    else if(commandType == "roll")
+    if(commandType == "roll") game->roll();
+    else if(commandType == "next") game->nextTurn();
     else if(commandType == "trade") game->trade(player2, give, receive);
-    else if(commandType == "")
+    else if(commandType == "improve") game->improveBuilding(property, buyOrSell);
+    else if(commandType == "mortgage") game->mortgage(property);
+    else if(commandType == "unmortgage") game->unmortgage(property);
+    else if(commandType == "bankrupt") game->handleBankruptcy();
+    else if(commandType == "assets") game->assets();
+    else if(commandType == "all") game->all();
+    else if(commandType == "save") game->save(filename);
 }
