@@ -8,7 +8,6 @@ class Game;
 class CommandInterpreter {
     // private instance variables
     Game *game;
-    string input;
 public:
     CommandInterpreter(Game *game); // normal constructor
     CommandInterpreter(const CommandInterpreter &other); // copy constructor
@@ -16,7 +15,7 @@ public:
     CommandInterpreter &operator=(const CommandInterpreter &other); // copy assignment
     CommandInterpreter &operator=(CommandInterpreter &&other); // move assignment
 
-    string readCommand();
-    void parseCommand();
-    void executeCommand();
+    string readCommand() const ;
+    void parseCommand() const ;
+    void executeCommand() const ;
 };
