@@ -36,6 +36,7 @@ public:
     void assets(const Player &player) const;
     void all() const;
     void save(string filename);
+    void auction();
 };
 
 #endif
