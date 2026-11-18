@@ -22,6 +22,7 @@ class CommandInterpreter {
 
 public:
     explicit CommandInterpreter(Game *game);
+    ~CommandInterpreter();
 
     bool readCommand();
     void parseCommand();

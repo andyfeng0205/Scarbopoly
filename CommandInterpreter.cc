@@ -3,11 +3,12 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-
 using namespace std;
 
 CommandInterpreter::CommandInterpreter(Game *game)
     : game{game} {}
+
+CommandInterpreter::~CommandInterpreter() = default;
 
 bool CommandInterpreter::readCommand() {
     if(getline(cin, command)) return true;
@@ -63,13 +64,13 @@ void CommandInterpreter::parseCommand() {
     }
 }
  
-void CommandInterpreter::executeCommand() {
+void CommandInterpreter::executeCommand() const {
     if(!validCommand) {
         cout << "Invalid command." << endl;
         return;
     }
 
-    if(commandType == "roll") game->roll();
+    if(commandType == "roll") game->rollDice();
     else if(commandType == "next") game->nextTurn();
     else if(commandType == "trade") game->trade(player2, give, receive);
     else if(commandType == "improve") game->improveBuilding(property, buyOrSell);
