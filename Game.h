@@ -1,3 +1,6 @@
+#ifndef GAME_H
+#define GAME_H
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -10,7 +13,8 @@ class Game{
     // private instance variables
     vector<Player*> players;
     Board* board;
-    int numCurrentPlayers;
+    int currentPlayer;
+    bool gameOver;
 public:
     Game();
     Game(const Game &other);
@@ -21,5 +25,17 @@ public:
 
     void startGame();
     void endGame();
-    void 
+    void rollDice();
+    void nextTurn();
+    void trade(string client, string give, string receieve);
+    void improveBuilding(string campusBuilding, string buyOrSell);
+    void mortgage(string property);
+    void unmortgage(string property);
+    void handleBankruptcy();
+    void assets();
+    void assets(const Player &player) const;
+    void all() const;
+    void save(string filename);
 };
+
+#endif
