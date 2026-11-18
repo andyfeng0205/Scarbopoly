@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include ""
 #include <iostream>
 #include <string>
 #include <vector>
@@ -15,6 +16,8 @@ class Game{
     Board* board;
     int currentPlayer;
     bool gameOver;
+    Auction *auction;
+    Bank *bank; 
 public:
     Game();
     Game(const Game &other);
