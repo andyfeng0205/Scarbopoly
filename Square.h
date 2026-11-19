@@ -6,9 +6,9 @@
 using namespace std;
 
 class Square {
-    //
+    
 public:
     
-}
+};
 
 #endif
