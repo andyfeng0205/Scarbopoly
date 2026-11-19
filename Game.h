@@ -1,7 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include ""
+#include "Board.h"
+#include "Dice.h"
+#include "Bank.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -9,6 +11,9 @@ using namespace std;
 
 class Player;
 class Board;
+class Bank;
+class Dice;
+class Auction;
 
 class Game{
     // private instance variables
@@ -40,6 +45,9 @@ public:
     void all() const;
     void save(string filename);
     void auction();
+
+private:
+    void movePlayer();
 };
 
 #endif

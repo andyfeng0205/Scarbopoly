@@ -2,7 +2,7 @@
 #define BOARD_H
 
 #include <string>
-#include <iostream>
+
 using namespace std;
 
 class Board {
