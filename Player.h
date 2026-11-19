@@ -5,7 +5,7 @@ using namespace std;
 
 class Ownable;
 
-class Student {
+class Player {
     char piece;
     int money;
     int position;
