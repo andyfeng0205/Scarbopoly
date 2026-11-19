@@ -18,12 +18,21 @@ class Player {
     vector<Ownable *> properties;   // the ownables buildigns the player owns
 
 public:
+    Player();
+    Player(char piece, int money, int position, bool inTims, 
+        int currentTimsTurn, int numCups, bool bankrupt, 
+        vector<Ownable*> properties);
+    
+    Player(const Player &other);
+    Player(Player &&other);
+    ~Player();
+
     void move(int step);
     void pay();
     void recieve();
     void addProperty(Ownable *property);
     void removeProperty();
-    string getAssest();
+    string getAssest() const ;
 };
 
 #endif

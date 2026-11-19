@@ -38,6 +38,7 @@ void Game::startGame() {
     cout << "Welcome to Scarbopoly!" << endl;
 
     // TODO: Initialize the board and players.
+    
 }
 
 // End the game

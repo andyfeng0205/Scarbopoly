@@ -2,7 +2,9 @@
 #define BANK_H
 
 class Bank {
-
+    //
+public:
+    
 };
 
 #endif

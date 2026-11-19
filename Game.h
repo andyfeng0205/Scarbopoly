@@ -10,10 +10,13 @@ class Board;
 class Bank;
 class Auction;
 
+#define MAX_PLAYERS 8
+
 class Game {
     std::vector<Player*> players;
     Board* board;
     int currentPlayer;
+    int numPlayers;
     bool gameOver;
     Auction* auctionManager;
     Bank* bank;
