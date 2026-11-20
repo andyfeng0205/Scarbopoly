@@ -4,6 +4,7 @@
 #include "Dice.h"
 #include <string>
 #include <vector>
+using namespace std;
 
 class Player;
 class Board;
@@ -13,23 +14,17 @@ class Auction;
 #define MAX_PLAYERS 8
 
 class Game {
-    std::vector<Player*> players;
-    Board* board;
+    vector<Player*> players;
+    Board *board;
     int currentPlayer;
     int numPlayers;
     bool gameOver;
-    Auction* auctionManager;
-    Bank* bank;
+    Auction *auctionManager;
+    Bank *bank;
     Dice *dice;
 
 public:
     Game();
-
-    Game(const Game &other) = delete;
-    Game &operator=(const Game &other) = delete;
-    Game(Game &&other) = delete;
-    Game &operator=(Game &&other) = delete;
-
     ~Game();
 
     void startGame();
