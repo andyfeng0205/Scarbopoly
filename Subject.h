@@ -3,9 +3,10 @@
 
 #include "Observer.h"
 #include <vector>
+using namespace std;
 
 class Subject {
-    std::vector<Observer*> observers;
+    vector<Observer*> observers;
 
 public:
     virtual ~Subject() = default;
