@@ -1,5 +1,5 @@
-#ifndef SQUARE_H
-#define SQUARE_H
+#ifndef SPECIAL_H
+#define SPECIAL_H
 
 #include "Square.h"
 #include <string>
