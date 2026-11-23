@@ -1,13 +1,17 @@
 #ifndef SQUARE_H
 #define SQUARE_H
 
+#include "Square.h"
 #include <string>
 using namespace std;
 
-class Special {
+class Player;
+class Game;
 
-public:
+class Special : public Square {
     
+public:
+    void landOn(Player &player, Game &game);
 };
 
 #endif
