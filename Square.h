@@ -8,6 +8,7 @@ class Player;
 class Game;
 
 class Square {
+protected:
     string name;
     int position;
 

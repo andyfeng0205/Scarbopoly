@@ -1,13 +1,18 @@
 #ifndef TEXTDISPLAY_H
 #define TEXTDISPLAY_H
 
-#include <string>
-using namespace std;
+#include "Observer.h"
 
-class TextDisplay {
-    
+class Game;
+
+class TextDisplay : public Observer {
+    Game &game;
+
 public:
-
+    TextDisplay(Game &game);
+    
+    void notify() const override;
+    void print() const;
 };
 
 #endif

@@ -9,9 +9,11 @@ class Player;
 class Game;
 
 class Special : public Square {
-    
 public:
-    void landOn(Player &player, Game &game);
+    Special(const string &name, int position);
+    virtual ~Special() = default;
+
+    virtual void landOn(Player &player, Game &game) override = 0;
 };
 
 #endif

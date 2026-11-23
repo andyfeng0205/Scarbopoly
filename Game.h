@@ -52,6 +52,7 @@ public:
 
 private:
     void movePlayer(int steps);
+    Player *findPlayer() const;
 };
 
 #endif

@@ -3,9 +3,9 @@
 
 class Observer {
 public:
-    Observer();
+    virtual ~Observer() = default;
+
     virtual void notify() const = 0;
-    
 };
 
 #endif
