@@ -40,11 +40,11 @@ void Player::removeProperty(Ownable *property) {
     properties.erase(std::remove(properties.begin(), properties.end(), property), properties.end());
 }
 
-// not finished
-string Player::getAssets() const {
-    string assets = "";
+// returns a string of the player's assets, with the form: Properties: ... , Money: ...
+std::string Player::getAssets() const {
+    std::string props = "Properties: ";
     for (auto property : properties) {
-        assets += property->getName() + ", ";
+        props += property->getName() + ", ";
     }
-    return assets;
+    return props + "Money: " + std::to_string(money);
 }
