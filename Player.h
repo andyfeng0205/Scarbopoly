@@ -15,7 +15,7 @@ class Player {
     int numCup;             // number of Roll Up and Rims Cup
     bool bankrupt;          // whether the player is bankrupt
     int consecutiveDoubles; // number of times the player rolls a double in the current turn
-    vector<Ownable *> properties;   // the ownables buildigns the player owns
+    vector<Ownable *> properties;   // the ownables buildings the player owns
 
 public:
     Player();
