@@ -41,6 +41,7 @@ void Player::removeProperty(Ownable *property) {
 }
 
 // returns a string of the player's assets, with the form: Properties: ... , Money: ...
+// Needs Ownable
 std::string Player::getAssets() const {
     std::string props = "Properties: ";
     for (auto property : properties) {
