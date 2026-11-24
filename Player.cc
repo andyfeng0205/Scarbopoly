@@ -1,5 +1,7 @@
 #include "Player.h"
 #include "Ownable.h"
+#include "Residence.h"
+#include "AthleticFacility.h"
 #include <algorithm>
 
 using namespace std;
@@ -49,28 +51,6 @@ std::string Player::getAssets() const {
     return props + "Money: " + std::to_string(money);
 }
 
-int Player::getNumResidence() const {
-    int count = 0;
-
-    for (auto property : properties) {
-        if (property->isResidence()) {
-            count++;
-        }
-    }
-    return count;
-}
-
-int Player::getNumAC() const {
-    int count = 0;
-
-    for (auto property : properties) {
-        if (property->isAthleticFacility()) {
-            count++;
-        }
-    }
-    return count;
-}
-
 // Movement
 void Player::setPosition(int position) {
     this->position = position;
@@ -81,7 +61,7 @@ int Player::getNumResidence() const {
     int count = 0;
 
     for (auto property : properties) {
-        if (property->isResidence()) {
+        if (dynamic_cast<Residence *>(property) != nullptr) {
             count++;
         }
     }
@@ -93,7 +73,7 @@ int Player::getNumAC() const {
     int count = 0;
 
     for (auto property : properties) {
-        if (property->isAthleticFacility()) {
+        if (dynamic_cast<AthleticFacility *>(property) != nullptr) {
             count++;
         }
     }

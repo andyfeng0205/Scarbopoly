@@ -14,6 +14,8 @@ public:
     void chargeRentOrTuition(Player &player, Game &game) const; // charge player, other than the owner, the respective
     void improve();         // improve the campus building, and changes its tuition
     void sellImprovement(); // sell an improvement
+    int getImprovementPrice();
+    int getImprovementLevel(); 
 };
 
 #endif

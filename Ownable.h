@@ -16,23 +16,21 @@ protected:
     bool mortgaged;
 
 public:
-    Ownable(string &name, int position, int purchasePrice);
+    Ownable(string name, int position, int purchasePrice);
     virtual ~Ownable() = default;
 
-    void landOn(Player &player, Game &game) override;
+    void landOn(Player &player, Game &game) override = 0;
 
     virtual void chargeRentOrTuition(Player &player, Game &game) const = 0;
 
-    void transferOwnership(Player *newOwner);
     void mortgage();
     void unmortgage();
 
+    void setOwner(Player *player);
+    void setMortgaged(bool status);
     Player *getOwner() const;
     int getPurchasePrice() const;
     bool isMortgaged() const;
-
-    virtual bool isResidence() const;
-    virtual bool isAthleticFacility() const;
 };
 
 #endif

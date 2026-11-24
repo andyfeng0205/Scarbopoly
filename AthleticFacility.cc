@@ -9,10 +9,6 @@ using namespace std;
 AthleticFacility::AthleticFacility(string name, int position, int purchasePrice)
     : Ownable{name, position, purchasePrice} {}
 
-bool AthleticFacility::isAthleticFacility() const {
-    return true;
-}
-
 int AthleticFacility::calculateFacilityFee(int facilityCount, int diceSum) const {
     if (facilityCount == 1) {
         return 4 * diceSum;
