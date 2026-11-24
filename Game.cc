@@ -304,6 +304,11 @@ const Board *Game::getBoard() const {
     return board;
 }
 
+// Get Bank
+Bank *Game::getBank() {
+    return bank;
+}
+
 // Get all players
 const vector<Player *> &Game::getPlayers() const {
     return players;

@@ -57,6 +57,7 @@ public:
     Dice *getDice() const;
     const Board *getBoard() const;
     const vector<Player *> &getPlayers() const;
+    Bank *getBank();
     bool isGameOver() const;
 
 private:
