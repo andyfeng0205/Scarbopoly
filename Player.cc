@@ -49,3 +49,130 @@ std::string Player::getAssets() const {
     }
     return props + "Money: " + std::to_string(money);
 }
+
+int Player::getNumResidence() const {
+    int count = 0;
+
+    for (auto property : properties) {
+        if (property->isResidence()) {
+            count++;
+        }
+    }
+    return count;
+}
+
+int Player::getNumAC() const {
+    int count = 0;
+
+    for (auto property : properties) {
+        if (property->isAthleticFacility()) {
+            count++;
+        }
+    }
+    return count;
+}
+
+// Movement
+void Player::setPosition(int position) {
+    this->position = position;
+}
+
+// Property management
+int Player::getNumResidence() const {
+    int count = 0;
+
+    for (auto property : properties) {
+        if (property->isResidence()) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+int Player::getNumAC() const {
+    int count = 0;
+
+    for (auto property : properties) {
+        if (property->isAthleticFacility()) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+const std::vector<Ownable *> &Player::getProperties() const {
+    return properties;
+}
+
+// Tims Line management
+void Player::setInTims(bool status) {
+    inTims = status;
+}
+
+void Player::setCurrentTimsTurn(int turns) {
+    currentTimsTurn = turns;
+}
+
+// Cup management
+void Player::addCup() {
+    numCups++;
+}
+
+void Player::removeCup() {
+    if (numCups > 0) {
+        numCups--;
+    }
+}
+
+// Doubles management
+void Player::incrementDoubles() {
+    consecutiveDoubles++;
+}
+
+void Player::resetDoubles() {
+    consecutiveDoubles = 0;
+}
+
+// Bankruptcy
+void Player::setBankrupt(bool status) {
+    bankrupt = status;
+}
+
+// Getters
+std::string Player::getName() const {
+    return name;
+}
+
+char Player::getPiece() const {
+    return piece;
+}
+
+int Player::getMoney() const {
+    return money;
+}
+
+int Player::getPosition() const {
+    return position;
+}
+
+bool Player::isInTims() const {
+    return inTims;
+}
+
+int Player::getCurrentTimsTurn() const {
+    return currentTimsTurn;
+}
+
+int Player::getNumCups() const {
+    return numCups;
+}
+
+bool Player::isBankrupt() const {
+    return bankrupt;
+}
+
+int Player::getConsecutiveDoubles() const {
+    return consecutiveDoubles;
+}

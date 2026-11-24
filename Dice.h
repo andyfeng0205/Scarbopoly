@@ -12,6 +12,7 @@ public:
     void roll();
     int getDice1() const ;
     int getDice2() const ;
+    int getSum() const;
 };
 
 #endif

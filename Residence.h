@@ -12,6 +12,8 @@ public:
     int calculateResidenceRent(int residenceCount) const;
 
     void chargeRentOrTuition(Player &player, Game &game) const override;
+
+    bool isResidence();
 };
 
 #endif

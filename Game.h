@@ -1,23 +1,25 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "Dice.h"
+#include "Subject.h"
 #include <string>
 #include <vector>
+
 using namespace std;
 
 class Player;
 class Board;
 class Bank;
 class Auction;
+class Dice;
+class Ownable;
 
 #define MAX_PLAYERS 8
 
-class Game {
-    vector<Player*> players;
+class Game : public Subject {
+    vector<Player *> players;
     Board *board;
     int currentPlayer;
-    int numPlayers;
     bool gameOver;
     Auction *auctionManager;
     Bank *bank;
@@ -27,32 +29,43 @@ public:
     Game();
     ~Game();
 
+    // Game flow
     void startGame();
-    void endGame();
     void rollDice();
     void nextTurn();
 
-    void trade(std::string client, std::string give,
-               std::string receive);
-
-    void improveBuilding(std::string campusBuilding,
-                         std::string buyOrSell);
-
-    void mortgage(std::string property);
-    void unmortgage(std::string property);
-
+    // Commands
+    void trade(string client, string give, string receive);
+    void improveBuilding(string campusBuilding, string buyOrSell);
+    void mortgage(string property);
+    void unmortgage(string property);
     void handleBankruptcy();
 
-    void assets();
-    void assets(const Player &player) const;
+    // Display commands
+    void assets() const;
     void all() const;
 
-    void save(std::string filename);
-    void auction();
+    // Save and load
+    void save(string filename);
+    void load(string filename);
+
+    // Gameplay coordination
+    void handlePayment(Player &from, Player *to, int amount);
+    void auction(Ownable &property);
+
+    // Getters
+    Dice *getDice() const;
+    const Board *getBoard() const;
+    const vector<Player *> &getPlayers() const;
+    Bank *getBank();
+    bool isGameOver() const;
 
 private:
+    void endGame();
     void movePlayer(int steps);
-    Player *findPlayer() const;
+    void assets(const Player &player) const;
+    Player *getCurrentPlayer() const;
+    Player *findPlayer(string name) const;
 };
 
 #endif
