@@ -30,6 +30,9 @@ public:
     Player *getOwner() const;
     int getPurchasePrice() const;
     bool isMortgaged() const;
+
+    virtual bool isResidence() const;
+    virtual bool isAthleticFacility() const;
 };
 
 #endif

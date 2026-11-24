@@ -2,7 +2,6 @@
 #define AF_H
 
 #include "Ownable.h"
-#include <string>
 using namespace std;
 
 class AthleticFacility : public Ownable {
@@ -12,6 +11,8 @@ public:
     int calculateFacilityFee(int diceTotal, int facilityCount) const;
 
     void chargeRentOrTuition(Player &player, Game &game) const override;
+
+    bool isAthleticFacility() const;
 };
 
 #endif
