@@ -12,8 +12,8 @@ Player::Player()
     numCups{0}, bankrupt{false}, consecutiveDoubles{0}, properties{} {}
 
 // Player ctor, with arguments
-Player::Player(std::string name, char piece, int money, int position, bool inTims, int currentTimsTurn, 
-    int numCups, bool bankrupt, int consecutiveDoubles, std::vector<Ownable *> properties)
+Player::Player(string name, char piece, int money, int position, bool inTims, int currentTimsTurn, 
+    int numCups, bool bankrupt, int consecutiveDoubles, vector<Ownable *> properties)
     : name{name}, piece{piece}, money{money}, position{position}, inTims{inTims}, currentTimsTurn{currentTimsTurn},
     numCups{numCups}, bankrupt{bankrupt}, consecutiveDoubles{consecutiveDoubles}, properties{properties} {}
 
@@ -39,16 +39,16 @@ void Player::addProperty(Ownable *property) {
 
 // removes a property from the player's list of properties
 void Player::removeProperty(Ownable *property) {
-    properties.erase(std::remove(properties.begin(), properties.end(), property), properties.end());
+    properties.erase(remove(properties.begin(), properties.end(), property), properties.end());
 }
 
 // returns a string of the player's assets, with the form: Properties: ... , Money: ...
-std::string Player::getAssets() const {
-    std::string props = "Properties: ";
+string Player::getAssets() const {
+    string props = "Properties: ";
     for (auto property : properties) {
         props += property->getName() + ", ";
     }
-    return props + "Money: " + std::to_string(money);
+    return props + "Money: " + to_string(money);
 }
 
 // Movement
@@ -81,7 +81,7 @@ int Player::getNumAC() const {
     return count;
 }
 
-const std::vector<Ownable *> &Player::getProperties() const {
+const vector<Ownable *> &Player::getProperties() const {
     return properties;
 }
 
@@ -120,7 +120,7 @@ void Player::setBankrupt(bool status) {
 }
 
 // Getters
-std::string Player::getName() const {
+string Player::getName() const {
     return name;
 }
 

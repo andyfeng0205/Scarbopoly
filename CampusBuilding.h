@@ -1,5 +1,5 @@
 #ifndef CAMPUSBUILDING_H
-#define CAMPUMBUILDING_H
+#define CAMPUSBUILDING_H
 
 #include "Ownable.h"
 #include <string>
