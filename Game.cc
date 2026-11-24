@@ -3,6 +3,8 @@
 #include "Board.h"
 #include "Bank.h"
 #include "Auction.h"
+#include "Dice.h"
+#include "Ownable.h"
 
 #include <iostream>
 #include <string>
@@ -15,7 +17,6 @@ Game::Game()
     : players{},
       board{nullptr},
       currentPlayer{0},
-      numPlayers{0},
       gameOver{false},
       auctionManager{nullptr},
       bank{new Bank{}},
@@ -42,7 +43,7 @@ void Game::startGame() {
 
     // TODO: Initialize the board.
     // TODO: Ask for the number of players.
-    // TODO: Initialize each player.
+    // TODO: Initialize players.
     // TODO: Attach and notify TextDisplay.
 }
 
@@ -52,7 +53,12 @@ void Game::endGame() {
 
     cout << "Game Over!" << endl;
 
-    // TODO: Display the winner.
+    for (Player *player : players) {
+        if (!player->isBankrupt()) {
+            cout << player->getName() << " wins!" << endl;
+            break;
+        }
+    }
 }
 
 // Roll dice
@@ -61,8 +67,8 @@ void Game::rollDice() {
         return;
     }
 
-    // TODO: Check whether the player is allowed to roll.
-    // TODO: Handle players in Tims Line.
+    // TODO: Check whether the player can roll.
+    // TODO: Handle Tims Line.
 
     dice->roll();
 
@@ -78,8 +84,7 @@ void Game::rollDice() {
         cout << "You rolled doubles!" << endl;
 
         // TODO: Update consecutive doubles.
-        // TODO: Send player to Tims after three doubles.
-        // Return without moving if this is the third double.
+        // TODO: Handle three consecutive doubles.
     }
 
     movePlayer(total);
@@ -91,7 +96,7 @@ void Game::movePlayer(int steps) {
         return;
     }
 
-    Player *player = players[currentPlayer];
+    Player *player = getCurrentPlayer();
 
     int oldPosition = player->getPosition();
 
@@ -99,7 +104,7 @@ void Game::movePlayer(int steps) {
 
     int newPosition = player->getPosition();
 
-    // Collect OSAP when moving forward across square 0.
+    // Collect OSAP when passing or landing on square 0.
     if (steps > 0) {
         int timesPassed = (oldPosition + steps) / 40;
 
@@ -113,7 +118,8 @@ void Game::movePlayer(int steps) {
          << newPosition << endl;
 
     // TODO: Retrieve the square from Board.
-    // TODO: Execute the square's landOn() method.
+    // TODO: Execute landOn().
+    // Collect OSAP must not be awarded again in landOn().
 
     notifyObservers();
 }
@@ -125,7 +131,7 @@ void Game::nextTurn() {
     }
 
     // TODO: Check whether the current player can end their turn.
-    // TODO: Check whether there is an outstanding payment.
+    // TODO: Check for outstanding payments.
 
     int activePlayers = 0;
 
@@ -140,13 +146,15 @@ void Game::nextTurn() {
         return;
     }
 
+    getCurrentPlayer()->resetDoubles();
+
     // Skip bankrupt players.
     do {
         currentPlayer = (currentPlayer + 1) % players.size();
     } while (players[currentPlayer]->isBankrupt());
 
     cout << "Current player: "
-         << players[currentPlayer]->getName() << endl;
+         << getCurrentPlayer()->getName() << endl;
 
     notifyObservers();
 }
@@ -171,12 +179,11 @@ void Game::trade(string client, string give, string receive) {
         return;
     }
 
-    // TODO: Determine whether give and receive are
-    //       money or properties.
+    // TODO: Determine whether give and receive are money or properties.
     // TODO: Validate ownership and improvements.
     // TODO: Ask the other player to accept or reject.
     // TODO: Execute the trade using Bank.
-    // TODO: Notify observers after a successful trade.
+    // TODO: Notify observers.
 }
 
 // Improve building
@@ -188,24 +195,22 @@ void Game::improveBuilding(string campusBuilding,
     }
 
     // TODO: Find the campus building.
-    // TODO: Verify ownership and monopoly.
-    // TODO: Call Bank::purchaseImprovement() or
-    //       Bank::sellImprovement().
-    // TODO: Notify observers after a successful transaction.
+    // TODO: Call the corresponding Bank method.
+    // TODO: Notify observers.
 }
 
 // Mortgage
 void Game::mortgage(string property) {
     // TODO: Find the property.
-    // TODO: Verify ownership.
     // TODO: Call Bank::mortgage().
+    // TODO: Notify observers.
 }
 
 // Unmortgage
 void Game::unmortgage(string property) {
     // TODO: Find the property.
-    // TODO: Verify ownership.
     // TODO: Call Bank::unmortgage().
+    // TODO: Notify observers.
 }
 
 // Handle mandatory payments
@@ -217,55 +222,41 @@ void Game::handlePayment(Player &from, Player *to, int amount) {
     bool success;
 
     if (to == nullptr) {
-        // Payment to the Bank.
         success = bank->collectMoney(from, amount);
     } else {
-        // Payment to another player.
         success = bank->transferMoney(from, *to, amount);
     }
 
     if (!success) {
         cout << "Insufficient funds!" << endl;
 
-        // TODO: Record the outstanding debt.
-        // TODO: Record the creditor.
-        // TODO: Prevent rolling or ending the turn.
-        // TODO: Allow the player to raise money or
-        //       declare bankruptcy.
+        // TODO: Record outstanding debt.
+        // TODO: Prevent the player from ending their turn.
+        // TODO: Allow the player to raise money or declare bankruptcy.
 
         return;
     }
 
-    cout << from.getName()
-         << " paid $" << amount;
-
-    if (to == nullptr) {
-        cout << " to the Bank." << endl;
-    } else {
-        cout << " to " << to->getName() << "." << endl;
-    }
+    cout << from.getName() << " paid $" << amount << endl;
 }
 
 // Bankruptcy
 void Game::handleBankruptcy() {
-    // TODO: Check whether the player has outstanding debt.
+    // TODO: Check outstanding debt.
     // TODO: Transfer assets to the creditor.
-    // TODO: Return properties to the Bank if necessary.
-    // TODO: Auction returned properties.
-    // TODO: Update the player's bankruptcy status.
+    // TODO: Auction properties if necessary.
+    // TODO: Update bankruptcy status.
     // TODO: Check whether the game has ended.
     // TODO: Notify observers.
 }
 
 // Current player's assets
-void Game::assets() {
+void Game::assets() const {
     Player *player = getCurrentPlayer();
 
-    if (player == nullptr) {
-        return;
+    if (player != nullptr) {
+        assets(*player);
     }
-
-    assets(*player);
 }
 
 // Specified player's assets
@@ -285,24 +276,22 @@ void Game::all() const {
 
 // Save game
 void Game::save(string filename) {
-    // TODO: Open the output file.
-    // TODO: Save the number of active players.
-    // TODO: Save players, starting with the current player.
+    // TODO: Open output file.
+    // TODO: Save active players in turn order.
     // TODO: Save properties in board order.
 }
 
 // Load game
 void Game::load(string filename) {
-    // TODO: Open the input file.
-    // TODO: Initialize the board.
-    // TODO: Load player information.
+    // TODO: Open input file.
+    // TODO: Initialize board and players.
     // TODO: Load property ownership and improvements.
     // TODO: Notify observers.
 }
 
-// Auction
-void Game::auction() {
-    // TODO: Start auction using auctionManager.
+// Auction a property
+void Game::auction(Ownable &property) {
+    // TODO: Use auctionManager to auction the property.
 }
 
 // Get Dice
@@ -310,13 +299,8 @@ Dice *Game::getDice() const {
     return dice;
 }
 
-// Get Bank
-Bank *Game::getBank() const {
-    return bank;
-}
-
 // Get Board
-Board *Game::getBoard() const {
+const Board *Game::getBoard() const {
     return board;
 }
 
