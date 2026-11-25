@@ -5,6 +5,19 @@ class Player;
 class Ownable;
 class CampusBuilding;
 
+/*
+ * The Bank class is responsible for managing financial transactions
+ * throughout the game, including purchasing properties, transferring
+ * money between players, buying and selling improvements, and
+ * mortgaging and unmortgaging properties.
+ *
+ * The Bank also validates transactions to ensure that players have
+ * sufficient funds and meet the necessary requirements.
+ *
+ * The Bank does not maintain its own balance, as it has an
+ * unlimited supply of money.
+ */
+
 class Bank {
 public:
     Bank() = default;

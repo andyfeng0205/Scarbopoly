@@ -13,7 +13,7 @@ protected:
     int position;
 
 public:
-    Square(const string &name, int position);
+    Square(string name, int position);
     virtual ~Square() = default;
 
     string getName() const;
