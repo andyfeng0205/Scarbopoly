@@ -10,6 +10,10 @@ string Square::getName() const {
     return name;
 }
 
+int Square::getImprovementLevel() const {
+    return 0;
+}
+
 int Square::getPosition() const {
     return position;
 }
