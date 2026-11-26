@@ -20,7 +20,7 @@ class CampusBuilding;
 
 class Bank {
 public:
-    Bank() = default;
+    Bank();
 
     // Basic financial transactions
     void payPlayer(Player &player, int amount);

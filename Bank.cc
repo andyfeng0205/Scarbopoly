@@ -38,6 +38,7 @@ bool Bank::purchaseProperty(Player &player, Ownable &property) {
 
 bool Bank::purchaseImprovement(Player &player, CampusBuilding &building) {
     if(building.getOwner() != &player) return false;
+    if(building.getImprovementLevel() >= 5) return false;
     if(!collectMoney(player, building.getImprovementPrice())) return false;
 
     building.improve();
@@ -47,6 +48,7 @@ bool Bank::purchaseImprovement(Player &player, CampusBuilding &building) {
 
 bool Bank::sellImprovement(Player &player, CampusBuilding &building) {
     if(building.getOwner() != &player) return false;
+    if(building.getImprovementLevel() <= 0) return false;
 
     building.sellImprovement();
     
