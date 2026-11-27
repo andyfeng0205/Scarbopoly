@@ -1,7 +1,23 @@
 #include "TextDisplay.h"
+#include "Game.h"
+#include "Player.h"
 #include <iostream>
 #include <string>
 #include <vector>
+
+const int LINE[40] = {
+    51, 51, 51, 51, 51, 51, 51, 51, 51, 51, 51,   // 0–10   bottom row
+    46, 41, 36, 31, 26, 21, 16, 11, 6,            // 11–19  left column
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,              // 20–30  top row
+    6, 11, 16, 21, 26, 31, 36, 41, 46             // 31–39  right column
+};
+
+const int COL[40] = {
+    81, 73, 65, 57, 49, 41, 33, 25, 17, 9, 1,     // 0–10
+    1, 1, 1, 1, 1, 1, 1, 1, 1,                    // 11–19
+    1, 9, 17, 25, 33, 41, 49, 57, 65, 73, 81,     // 20–30
+    81, 81, 81, 81, 81, 81, 81, 81, 81            // 31–39
+};
 
 using namespace std;
 
@@ -73,7 +89,23 @@ void TextDisplay::print() const {
         "|       |       |       |       |       |       |       |       |       |       |       |",
         "|_______|_______|_______|_______|_______|_______|_______|_______|_______|_______|_______|"
     };
-    
+
+       // for (int pos = 0; pos < 40; ++pos) {
+    //     int level = game.getBoard()->getSquare(pos)->getImprovementLevel();
+    //     for (int i = 0; i < level; ++i) {
+    //         board[LINE[pos]][COL[pos] + i] = 'I';
+    //     }
+    // }
+        int onSquare[40] = {};
+    for (const Player *player : game.getPlayers()) {
+        if (player->isBankrupt()) {
+            continue;
+        }
+        int pos = player->getPosition();
+        board[LINE[pos] + 3][COL[pos] + onSquare[pos]] = player->getPiece();
+        ++onSquare[pos];
+    }
+
     for (const string &line : board) {
         cout << line << endl;
     }
