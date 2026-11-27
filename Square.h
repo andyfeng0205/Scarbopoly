@@ -14,11 +14,12 @@ protected:
 
 public:
     Square(string name, int position);
-    virtual ~Square() = default;
+    virtual ~Square();
 
     string getName() const;
     int getPosition() const;
 
+    virtual int getImprovementLevel() const;
     virtual void landOn(Player &player, Game &game) = 0;
 };
 

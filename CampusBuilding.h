@@ -11,11 +11,14 @@ class CampusBuilding : public Ownable{
     int tuition[6];         // The tuition of the current improvement level
     int improvementCost;    // cost to improve the current campus building
 public:
-    void chargeRentOrTuition(Player &player, Game &game) const; // charge player, other than the owner, the respective
+    CampusBuilding(string name, int position, int purchasePrice, string monopolyBlock, int improvementCost, int tuition[6]); // ctor
+    void landOn(Player &player, Game &game) override;
+    void chargeRentOrTuition(Player &player, Game &game) const override; // charge player, other than the owner, the respective
     void improve();         // improve the campus building, and changes its tuition
     void sellImprovement(); // sell an improvement
-    int getImprovementPrice();
-    int getImprovementLevel(); 
+    int getImprovementPrice() const; // return the improvement price
+    int getImprovementLevel() const override; // return the improvement level
+    string getMonopolyBlock() const; // return the monopoly block
 };
 
 #endif
