@@ -3,7 +3,6 @@
 
 #include "Ownable.h"
 #include <string>
-using namespace std;
 
 class Residence : public Ownable {
 public:
